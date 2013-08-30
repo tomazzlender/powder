@@ -257,15 +257,15 @@ module Powder
     def debug
       check_rdebug_initializer
       # Connect to remote rdebug session
-      require 'ruby-debug'
-      Debugger.settings[:autoeval] = true
-      Debugger.settings[:autolist] = 1
-      Debugger.settings[:reload_source_on_change] = true
+      require 'byebug'
+      Byebug.settings[:autoeval] = true
+      Byebug.settings[:autolist] = 1
+      Byebug.settings[:reload_source_on_change] = true
       connected = false
       start = Time.now.to_i
       while !connected && (Time.now.to_i - start) < 15
         begin
-          Debugger.start_client && connected = true
+          Byebug.start_server && connected = true
         rescue
           next
         end
